@@ -1,0 +1,70 @@
+Description: set some tests to unsupported
+Bug-Debian: http://bugs.debian.org/710851
+Last-Update: 2013-06-06
+
+--- a/testsuite/pgrep.test/pgrep.exp
++++ b/testsuite/pgrep.test/pgrep.exp
+@@ -9,7 +9,7 @@
+ set gid [ exec id -g ]
+ set not_gid [ expr { $gid + 1 } ] 
+ set ps "${topdir}ps/pscommand"
+-set raw_tty [ exec tty ]
++set have_tty [ catch { exec tty } raw_tty ]
+ regexp "/dev/(.+)" $raw_tty > tty
+ 
+ set test "pgprep with no arguments"
+@@ -80,8 +80,12 @@
+ expect_blank "$test"
+ 
+ set test "pgrep matches on tty"
++if { $have_tty eq 0 } {
+ spawn $pgrep -t $tty $testproc_comm
+ expect_pass "$test" "^$testproc1_pid\\s+$testproc2_pid\\s*$"
++} else {
++unsupported "$test"
++}
+ 
+ set test "pgrep doesn't match with bogus tty"
+ spawn $pgrep -t glass $testproc_comm
+--- a/testsuite/pkill.test/pkill.exp
++++ b/testsuite/pkill.test/pkill.exp
+@@ -9,7 +9,7 @@
+ set gid [ exec id -g ]
+ set not_gid [ expr { $gid + 1 } ] 
+ set ps "${topdir}ps/pscommand"
+-set raw_tty [ exec tty ]
++set have_tty [ catch { exec tty} raw_tty ]
+ regexp "/dev/(.+)" $raw_tty > tty
+ 
+ set test "pkill with no arguments"
+--- a/testsuite/ps.test/ps_output.exp
++++ b/testsuite/ps.test/ps_output.exp
+@@ -9,8 +9,8 @@
+ set not_uid [ expr { $uid + 1 } ] 
+ set gid [ exec id -g ]
+ set not_gid [ expr { $gid + 1 } ] 
+-set raw_tty [ exec tty ]
+-regexp "/dev/(.+)" $raw_tty > tty
++#set has_tty [ catch { exec tty} raw_tty ]
++#regexp "/dev/(.+)" $raw_tty > tty
+ 
+ # All the fields
+ # Cannot do args,cmd,comm
+--- a/testsuite/pwdx.test/pwdx.exp
++++ b/testsuite/pwdx.test/pwdx.exp
+@@ -12,9 +12,10 @@
+ 
+ # Run pwdx with existing pid
+ set test "pwdx finds sleep in cwd"
+-set sleep_pid [ exec sleep 600 & ]
+-set sleep_pwd [ pwd ]
+-spawn $pwdx $sleep_pid
+-expect_pass "$test" "^$sleep_pid: $sleep_pwd"
+-exec kill $sleep_pid
++#set sleep_pid [ exec sleep 600 & ]
++#set sleep_pwd [ pwd ]
++#spawn $pwdx $sleep_pid
++#expect_pass "$test" "^$sleep_pid: $sleep_pwd"
++#exec kill $sleep_pid
++untested "$test"
+ 
