@@ -1,0 +1,17 @@
+Index: procps/testsuite/pmap.test/pmap.exp
+===================================================================
+--- procps.orig/testsuite/pmap.test/pmap.exp	2016-11-03 11:47:59.347259792 +0100
++++ procps/testsuite/pmap.test/pmap.exp	2016-11-03 11:48:31.135315698 +0100
+@@ -58,12 +58,3 @@
+ set test "pmap double extra extended output"
+ spawn $pmap -XX $mypid
+ expect_table $test $pmap_generic_header "\[^=\]+" "\[= \]+"
+-
+-set test "pmap X with unreachable process"
+-spawn $pmap -X 1
+-expect_pass $test "$pmap_initname\$"
+-
+-set test "pmap XX with unreachable process"
+-spawn $pmap -XX 1
+-expect_pass $test "$pmap_initname\$"
+-

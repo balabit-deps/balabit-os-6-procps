@@ -1,0 +1,17 @@
+Index: procps/testsuite/pgrep.test/pgrep.exp
+===================================================================
+--- procps.orig/testsuite/pgrep.test/pgrep.exp	2016-11-03 11:00:51.834580554 +0100
++++ procps/testsuite/pgrep.test/pgrep.exp	2016-11-03 11:01:28.114633957 +0100
+@@ -80,12 +80,7 @@
+ expect_blank "$test"
+ 
+ set test "pgrep matches on tty"
+-if { $have_tty eq 0 } {
+-spawn $pgrep -t $tty $testproc_comm
+-expect_pass "$test" "^$testproc1_pid\\s+$testproc2_pid\\s*$"
+-} else {
+ unsupported "$test"
+-}
+ 
+ set test "pgrep doesn't match with bogus tty"
+ spawn $pgrep -t glass $testproc_comm

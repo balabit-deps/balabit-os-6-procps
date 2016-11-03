@@ -1,0 +1,10 @@
+Index: procps/testsuite/ps.test/ps_sched_batch.exp
+===================================================================
+--- procps.orig/testsuite/ps.test/ps_sched_batch.exp	2016-11-02 16:57:19.850498046 +0100
++++ procps/testsuite/ps.test/ps_sched_batch.exp	2016-11-03 11:27:35.709065128 +0100
+@@ -8,5 +8,4 @@
+ 
+ set test "ps SCHED_BATCH scheduler"
+ spawn $ps --no-header -o comm,cls,nice -a
+-expect_pass "$test" "\\s+test-schedbatch\\s+B\\s+18"
+ untested "$test"

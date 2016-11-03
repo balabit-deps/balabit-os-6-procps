@@ -1,0 +1,13 @@
+Index: procps/testsuite/pgrep.test/pgrep.exp
+===================================================================
+--- procps.orig/testsuite/pgrep.test/pgrep.exp	2016-11-03 10:52:54.585875732 +0100
++++ procps/testsuite/pgrep.test/pgrep.exp	2016-11-03 10:53:24.081919424 +0100
+@@ -76,7 +76,7 @@
+ expect_pass "$test" "^$testproc1_pid\\s+$testproc2_pid\\s*$"
+ 
+ set test "pgrep doesn't match with bogus sid"
+-spawn $pgrep -s 1 $testproc_comm
++spawn $pgrep -s 2 $testproc_comm
+ expect_blank "$test"
+ 
+ set test "pgrep matches on tty"

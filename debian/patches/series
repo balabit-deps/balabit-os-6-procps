@@ -6,3 +6,7 @@ ignore_eaccess.patch
 testsuite_unsupp
 pmap_test
 ignore_erofs.patch
+pgrep-test-sid-fix.diff
+pgrep-test-tty-fix.diff
+ps-sched-batch-fix.diff
+pmap-test-unreachable-fix.diff
