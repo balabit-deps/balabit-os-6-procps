@@ -1,0 +1,90 @@
+From d1d2ccf732fec40e0d48640f1d23a476a002d987 Mon Sep 17 00:00:00 2001
+From: Filipe Brandenburger <filbranden@google.com>
+Date: Thu, 4 Jun 2015 22:07:49 -0700
+Subject: [PATCH] skill: fix command line with signal, again
+
+Have skill_sig_option sanitize the command line by properly decrementing
+*argc after moving the arguments to remove the -signal one.
+
+One bug caused by this issue was when running `kill -1`, then the code
+would interpret -1 as both SIGHUP and as process group -1 and send
+SIGHUP to all of them. Or `kill -28` which would send SIGWINCH to
+process group -2 (in another bug, the -pgid support only accepts a
+single digit, fix for that bug will follow.)
+
+This also reverts commit 7610b3128e6ac4 ("skill: fix command line with
+signal") which worked around this bug in `skill` and also removes the
+"sigopt" hack which worked around this bug in `kill`.
+
+The skill_sig_option implementation is compatible with signal_option()
+from pgrep.c. I plan to factor them out into a single source file in a
+follow up commit, to prevent the duplication.
+
+This commit fixes the issues reported above. I also tested the issues
+from commit 7610b3128e6ac4, `skill -9 -t pts/0` works as expected, also
+tried `kill` with -signal and a number of pids and it worked as
+expected.
+
+Also tested that `make check` and `make distcheck` keep working.
+
+Signed-off-by: Filipe Brandenburger <filbranden@google.com>
+
+[ dannf: Dropped hunk reverting 7610b3128e6ac4, which was not
+  yet applied in this release. ]
+
+BugLink: http://bugs.launchpad.net/bugs/1643084
+Last-Updated: 2016-11-18
+
+Index: procps-3.3.10/skill.c
+===================================================================
+--- procps-3.3.10.orig/skill.c
++++ procps-3.3.10/skill.c
+@@ -398,17 +398,15 @@ static void __attribute__ ((__noreturn__
+ 
+ static int skill_sig_option(int *argc, char **argv)
+ {
+-	int i, nargs = *argc;
++	int i;
+ 	int signo = -1;
+-	for (i = 1; i < nargs; i++) {
++	for (i = 1; i < *argc; i++) {
+ 		if (argv[i][0] == '-') {
+ 			signo = signal_name_to_number(argv[i] + 1);
+ 			if (-1 < signo) {
+-				if (nargs - i) {
+-					nargs--;
+-					memmove(argv + i, argv + i + 1,
+-						sizeof(char *) * (nargs - i));
+-				}
++				memmove(argv + i, argv + i + 1,
++					sizeof(char *) * (*argc - i));
++				(*argc)--;
+ 				return signo;
+ 			}
+ 		}
+@@ -421,7 +419,6 @@ static void __attribute__ ((__noreturn__
+     kill_main(int argc, char **argv)
+ {
+ 	int signo, i;
+-	int sigopt = 0;
+ 	int loop = 1;
+ 	long pid;
+ 	int exitvalue = EXIT_SUCCESS;
+@@ -446,8 +443,6 @@ static void __attribute__ ((__noreturn__
+ 	signo = skill_sig_option(&argc, argv);
+ 	if (signo < 0)
+ 		signo = SIGTERM;
+-	else
+-		sigopt++;
+ 
+ 	opterr=0; /* suppress errors on -123 */
+ 	while (loop == 1 && (i = getopt_long(argc, argv, "l::Ls:hV", longopts, NULL)) != -1)
+@@ -495,7 +490,7 @@ static void __attribute__ ((__noreturn__
+ 			kill_usage(stderr);
+ 		}
+ 
+-	argc -= optind + sigopt;
++	argc -= optind;
+ 	argv += optind;
+ 
+ 	for (i = 0; i < argc; i++) {

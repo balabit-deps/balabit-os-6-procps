@@ -1,0 +1,28 @@
+From b42997b6c9c140c0ee1b93c4bbbc0fee38d21238 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Benedikt=20B=C3=B6hm?= <bb@xnull.de>
+Date: Tue, 12 Apr 2016 21:02:28 +0200
+Subject: [PATCH] fix parsing of negative PIDs
+
+Signed-off-by: Craig Small <csmall@enc.com.au>
+
+Bug-Ubuntu: http://bugs.launchpad.net/bugs/1604189
+---
+ skill.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/skill.c b/skill.c
+index f8f4e49..9147527 100644
+--- a/skill.c
++++ b/skill.c
+@@ -479,7 +479,7 @@ static void __attribute__ ((__noreturn__))
+ 			} else {
+ 			    /* Special case for signal digit negative
+ 			     * PIDs */
+-			    pid = (long)('0' - optopt);
++			    pid = atoi(argv[optind]);
+ 			    if (kill((pid_t)pid, signo) != 0)
+ 				exitvalue = EXIT_FAILURE;
+ 			    exit(exitvalue);
+-- 
+2.10.1
+
