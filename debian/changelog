@@ -1,3 +1,9 @@
+procps (2:3.3.10-4ubuntu2.3bb1) xenial; urgency=medium
+
+  * Balabit patched version
+
+ -- Balabit Platform Team <devnull@dev.null>  Thu, 15 Feb 2018 09:51:45 +0000
+
 procps (2:3.3.10-4ubuntu2.3) xenial; urgency=medium
 
   * kill: Fix segfault when called with single negative pid,
