@@ -1,3 +1,23 @@
+procps (2:3.3.10-4ubuntu2.3) xenial; urgency=medium
+
+  * kill: Fix segfault when called with single negative pid,
+    a regression introduced in 2:3.3.10-4ubuntu2.1 (LP: #1643084).
+
+ -- dann frazier <dannf@ubuntu.com>  Fri, 18 Nov 2016 16:08:57 -0700
+
+procps (2:3.3.10-4ubuntu2.2) xenial; urgency=medium
+
+  * Don't start procps on install. This avoids errors on upgrade
+    within a container. Backported from yakkety. (LP: #1637300)
+
+ -- dann frazier <dannf@ubuntu.com>  Wed, 26 Oct 2016 18:21:16 -0600
+
+procps (2:3.3.10-4ubuntu2.1) xenial; urgency=medium
+
+  * Fix parsing of negative PIDs. (LP: #1637026)
+
+ -- dann frazier <dannf@ubuntu.com>  Wed, 26 Oct 2016 18:21:16 -0600
+
 procps (2:3.3.10-4ubuntu2bb1) UNRELEASED; urgency=medium
 
   * Balabit patched version

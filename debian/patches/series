@@ -10,3 +10,5 @@ pgrep-test-sid-fix.diff
 pgrep-test-tty-fix.diff
 ps-sched-batch-fix.diff
 pmap-test-unreachable-fix.diff
+fix-parsing-of-negative-PIDs.patch
+skill-fix-command-line-with-signal-again.patch
