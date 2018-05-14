@@ -8,3 +8,8 @@ pmap_test
 ignore_erofs.patch
 fix-parsing-of-negative-PIDs.patch
 skill-fix-command-line-with-signal-again.patch
+CVE-2018-1122.patch
+CVE-2018-1123.patch
+CVE-2018-1124.patch
+CVE-2018-1125.patch
+CVE-2018-1126.patch

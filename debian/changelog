@@ -1,3 +1,26 @@
+procps (2:3.3.10-4ubuntu2.4) xenial-security; urgency=medium
+
+  * SECURITY UPDATE: top configuration file read from current directory
+    - debian/patches/CVE-2018-1122.patch: do not default to the cwd in
+      top/top.c.
+    - CVE-2018-1122
+  * SECURITY UPDATE: ps output buffer overflow
+    - debian/patches/CVE-2018-1123.patch: check sizes in ps/output.c.
+    - CVE-2018-1123
+  * SECURITY UPDATE: integer overflow in file2strvec()
+    - debian/patches/CVE-2018-1124.patch: prevent overflow in
+      proc/readproc.c.
+    - CVE-2018-1124
+  * SECURITY UPDATE: stack overflow in pgrep
+    - debian/patches/CVE-2018-1125.patch: check length in pgrep.c.
+    - CVE-2018-1125
+  * SECURITY UPDATE: truncated sizes and possible integer overflow
+    - debian/patches/CVE-2018-1126.patch: use size_t, not unsigned int in
+      proc/alloc.*.
+    - CVE-2018-1126
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Mon, 14 May 2018 08:05:23 -0400
+
 procps (2:3.3.10-4ubuntu2.3) xenial; urgency=medium
 
   * kill: Fix segfault when called with single negative pid,
