@@ -1,3 +1,9 @@
+procps (2:3.3.10-4ubuntu2.4bb1) xenial; urgency=medium
+
+  * Balabit patched version
+
+ -- Balabit Platform Team <devnull@dev.null>  Sun, 27 May 2018 04:23:02 +0200
+
 procps (2:3.3.10-4ubuntu2.4) xenial-security; urgency=medium
 
   * SECURITY UPDATE: top configuration file read from current directory
