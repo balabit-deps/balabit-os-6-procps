@@ -13,3 +13,4 @@ CVE-2018-1123.patch
 CVE-2018-1124.patch
 CVE-2018-1125.patch
 CVE-2018-1126.patch
+lp1410558-fix-thcount.patch

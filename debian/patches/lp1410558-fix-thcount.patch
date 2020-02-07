@@ -1,0 +1,27 @@
+From 3a52dfa340276a7f8f55af1b8267392ee48988b9 Mon Sep 17 00:00:00 2001
+From: Shivkrishna A <nambiarshiva@localhost.localdomain>
+Date: Wed, 2 Mar 2016 22:35:55 +0530
+Subject: [PATCH] Fix for Bug:1174313
+
+Origin: upstream, https://gitlab.com/procps-ng/procps/commit/3a52dfa34027
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/1410558
+---
+ ps/output.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/ps/output.c b/ps/output.c
+index 6bf53394..06f75d3c 100644
+--- a/ps/output.c
++++ b/ps/output.c
+@@ -1674,8 +1674,8 @@ static const format_struct format_array[] = {
+ {"sz",        "SZ",      pr_sz,       sr_nop,     5,   0,    HPU, PO|RIGHT},
+ {"taskid",    "TASKID",  pr_nop,      sr_nop,     5,   0,    SUN, TO|PIDMAX|RIGHT}, // is this a thread ID?
+ {"tdev",      "TDEV",    pr_nop,      sr_nop,     4,   0,    XXX, AN|RIGHT},
+-{"thcount",   "THCNT",   pr_nlwp,     sr_nlwp,    5,   0,    AIX, PO|RIGHT},
+ {"tgid",      "TGID",    pr_procs,    sr_procs,   5,   0,    LNX, PO|PIDMAX|RIGHT},
++{"thcount",   "THCNT",   pr_nlwp,     sr_nlwp,    5,   0,    AIX, PO|RIGHT},
+ {"tid",       "TID",     pr_tasks,    sr_tasks,   5,   0,    AIX, TO|PIDMAX|RIGHT},
+ {"time",      "TIME",    pr_time,     sr_time,    8,   0,    U98, ET|RIGHT}, /*cputime*/ /* was 6 wide */
+ {"timeout",   "TMOUT",   pr_nop,      sr_nop,     5,   0,    LNX, AN|RIGHT}, // 2.0.xx era
+--
+2.24.1
