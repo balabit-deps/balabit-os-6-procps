@@ -1,3 +1,9 @@
+procps (2:3.3.10-4ubuntu2.5bb1) xenial; urgency=medium
+
+  * Balabit patched version
+
+ -- Balabit Platform Team <devnull@dev.null>  Sat, 28 Mar 2020 04:25:49 +0100
+
 procps (2:3.3.10-4ubuntu2.5) xenial; urgency=medium
 
   * d/p/lp1410558-fix-thcount.patch:
